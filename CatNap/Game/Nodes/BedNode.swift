@@ -13,9 +13,11 @@ final class BedNode: SKSpriteNode, EventListenerNode {
     // MARK: - EventListenerNode
 
     func didMoveToScene() {
-        let bedBodySize = CGSize(width: 40, height: 30)
+        let bedBodySize = CGSize(width: 400, height: 30)
         physicsBody = SKPhysicsBody(rectangleOf: bedBodySize)
         physicsBody?.isDynamic = false
+        physicsBody?.categoryBitMask = PhysicsCategory.bed.rawValue
+        physicsBody?.collisionBitMask = PhysicsCategory.none.rawValue
     }
 
 }

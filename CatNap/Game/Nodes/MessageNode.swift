@@ -14,6 +14,7 @@ final class MessageNode: SKLabelNode {
         self.init(fontNamed: Resources.Fonts.message)
 
         text = message
+        name = "message"
         fontSize = 256
         fontColor = SKColor.gray
         zPosition = 100
@@ -28,6 +29,7 @@ final class MessageNode: SKLabelNode {
         physicsBody = SKPhysicsBody(circleOfRadius: 10)
         physicsBody?.categoryBitMask = PhysicsCategory.label.rawValue
         physicsBody?.collisionBitMask = PhysicsCategory.edge.rawValue
+        physicsBody?.contactTestBitMask = PhysicsCategory.edge.rawValue
         physicsBody?.restitution = 0.7
     }
 

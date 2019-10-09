@@ -13,6 +13,7 @@ class GameScene: SKScene {
 
     private var playableRect: CGRect = .zero
     private var playable = true
+    private var messageBounces = 0
 
 
     // MARK: - Nodes
@@ -105,18 +106,32 @@ class GameScene: SKScene {
 extension GameScene: SKPhysicsContactDelegate {
 
     func didBegin(_ contact: SKPhysicsContact) {
-        guard playable else { return }
 
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 
         switch collision {
         case PhysicsCategory.cat.rawValue | PhysicsCategory.bed.rawValue:
+            guard playable else { return }
+
             print("Success")
             win()
 
         case PhysicsCategory.cat.rawValue | PhysicsCategory.edge.rawValue:
+            guard playable else { return }
+
             print("Fail")
             lose()
+
+        case PhysicsCategory.label.rawValue | PhysicsCategory.edge.rawValue:
+            print("Bounce")
+            messageBounces += 1
+
+            if messageBounces >= 4,
+                let label = childNode(withName: "//message") {
+
+                label.removeFromParent()
+                messageBounces = 0
+            }
 
         default: break
         }

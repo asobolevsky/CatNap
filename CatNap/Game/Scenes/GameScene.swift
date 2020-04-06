@@ -124,15 +124,11 @@ extension GameScene: SKPhysicsContactDelegate {
 
         case PhysicsCategory.label.rawValue | PhysicsCategory.edge.rawValue:
             print("Bounce")
-            messageBounces += 1
 
-            if messageBounces >= 4,
-                let label = childNode(withName: "//message") {
-
-                label.removeFromParent()
-                messageBounces = 0
+            if let label = childNode(withName: "//message") as? MessageNode {
+                label.didBounce()
             }
-
+//            p. 241
         default: break
         }
     }
